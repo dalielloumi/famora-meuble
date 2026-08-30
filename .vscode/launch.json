@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Gestion Meuble (env.json)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define-from-file=env.json"]
+    },
+    {
+      "name": "Gestion Meuble — profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--dart-define-from-file=env.json"]
+    },
+    {
+      "name": "Gestion Meuble — release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--dart-define-from-file=env.json"]
+    }
+  ]
+}
