@@ -8,22 +8,28 @@ import '../../../core/theme/app_colors.dart';
 import '../../../models/tiers.dart';
 import '../../../providers/tiers_providers.dart';
 
-Future<void> ouvrirFormulaireTiers(BuildContext context, {Tiers? tiers}) {
+/// Préfixe de code par type de tiers — sert à la génération automatique
+/// du code (PREFIXE + compteur), même principe que la référence article
+/// (voir article_formulaire.dart).
+const _prefixesParType = {TypeTiers.client: 'CL', TypeTiers.fournisseur: 'FR', TypeTiers.lesDeux: 'CF'};
+
+Future<void> ouvrirFormulaireTiers(BuildContext context, {Tiers? tiers, TypeTiers? typeInitial}) {
   return showDialog<void>(
     context: context,
     builder: (context) => Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 480),
-        child: _TiersFormulaire(tiers: tiers),
+        child: _TiersFormulaire(tiers: tiers, typeInitial: typeInitial),
       ),
     ),
   );
 }
 
 class _TiersFormulaire extends ConsumerStatefulWidget {
-  const _TiersFormulaire({this.tiers});
+  const _TiersFormulaire({this.tiers, this.typeInitial});
 
   final Tiers? tiers;
+  final TypeTiers? typeInitial;
 
   @override
   ConsumerState<_TiersFormulaire> createState() => _TiersFormulaireState();
@@ -33,8 +39,31 @@ class _TiersFormulaireState extends ConsumerState<_TiersFormulaire> {
   final _cleFormulaire = GlobalKey<FormBuilderState>();
   bool _enCours = false;
   String? _erreur;
+  String? _codeApercu;
 
   bool get _modification => widget.tiers != null;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_modification) {
+      _codeApercu = widget.tiers!.code;
+    } else {
+      _actualiserApercuCode(widget.typeInitial ?? TypeTiers.client);
+    }
+  }
+
+  Future<void> _actualiserApercuCode(TypeTiers type) async {
+    if (_modification) return; // Le code d'un tiers existant ne change pas.
+    try {
+      final compte = await ref.read(tiersRepositoryProvider).compterParType(type);
+      if (!mounted) return;
+      setState(() => _codeApercu = '${_prefixesParType[type]}${(compte + 1).toString().padLeft(3, '0')}');
+    } catch (_) {
+      // Aperçu best-effort : une erreur ici n'empêche pas la saisie, le
+      // code définitif est de toute façon recalculé à l'enregistrement.
+    }
+  }
 
   Future<void> _enregistrer() async {
     final etat = _cleFormulaire.currentState;
@@ -46,10 +75,17 @@ class _TiersFormulaireState extends ConsumerState<_TiersFormulaire> {
     });
 
     final v = etat.value;
+    final type = v['type'] as TypeTiers;
+    var code = widget.tiers?.code;
+    if (!_modification) {
+      final compte = await ref.read(tiersRepositoryProvider).compterParType(type);
+      code = '${_prefixesParType[type]}${(compte + 1).toString().padLeft(3, '0')}';
+    }
+
     final tiers = Tiers(
       id: widget.tiers?.id,
-      type: v['type'] as TypeTiers,
-      code: v['code'] as String,
+      type: type,
+      code: code!,
       raisonSociale: v['raison_sociale'] as String,
       matriculeFiscal: v['matricule_fiscal'] as String?,
       adresse: v['adresse'] as String?,
@@ -94,30 +130,25 @@ class _TiersFormulaireState extends ConsumerState<_TiersFormulaire> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: FormBuilderTextField(
-                      name: 'code',
-                      initialValue: t?.code,
-                      decoration: const InputDecoration(labelText: 'Code'),
-                      validator: FormBuilderValidators.required(errorText: 'Champ requis'),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: FormBuilderDropdown<TypeTiers>(
-                      name: 'type',
-                      initialValue: t?.type ?? TypeTiers.client,
-                      decoration: const InputDecoration(labelText: 'Type'),
-                      items: [
-                        for (final v in TypeTiers.values) DropdownMenuItem(value: v, child: Text(v.libelle)),
-                      ],
-                      validator: FormBuilderValidators.required(errorText: 'Champ requis'),
-                    ),
-                  ),
+              FormBuilderDropdown<TypeTiers>(
+                name: 'type',
+                initialValue: t?.type ?? widget.typeInitial ?? TypeTiers.client,
+                decoration: const InputDecoration(labelText: 'Type'),
+                items: [
+                  for (final v in TypeTiers.values) DropdownMenuItem(value: v, child: Text(v.libelle)),
                 ],
+                validator: FormBuilderValidators.required(errorText: 'Champ requis'),
+                onChanged: (type) {
+                  if (type != null) _actualiserApercuCode(type);
+                },
               ),
+              if (_codeApercu != null) ...[
+                const SizedBox(height: 6),
+                Text(
+                  'Code : $_codeApercu',
+                  style: const TextStyle(fontSize: 12, color: AppColors.texteAttenue, fontWeight: FontWeight.w600),
+                ),
+              ],
               const SizedBox(height: 12),
               FormBuilderTextField(
                 name: 'raison_sociale',

@@ -7,6 +7,15 @@ class TiersRepository {
     return lignes.map(Tiers.fromJson).toList();
   }
 
+  /// Nombre de tiers déjà rattachés à ce type — sert de base à la génération
+  /// automatique du code (PREFIXE + compteur), même principe que les
+  /// articles (voir ArticleRepository.compterParFamille).
+  Future<int> compterParType(TypeTiers type) async {
+    const valeurs = {TypeTiers.client: 'CLIENT', TypeTiers.fournisseur: 'FOURNISSEUR', TypeTiers.lesDeux: 'LES_DEUX'};
+    final lignes = await supabase.from('tiers').select('id').eq('type', valeurs[type]!);
+    return lignes.length;
+  }
+
   Future<Tiers> creer(Tiers tiers) async {
     final donnees = tiers.toJson()..remove('id')..remove('solde');
     final ligne = await supabase.from('tiers').insert(donnees).select().single();

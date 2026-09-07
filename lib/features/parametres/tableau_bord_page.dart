@@ -6,6 +6,7 @@ import '../../core/responsive/breakpoints.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text.dart';
 import '../../core/utils/formatters.dart';
+import '../../models/tiers.dart';
 import '../../providers/auth_providers.dart';
 import '../../providers/dashboard_providers.dart';
 import '../../providers/ventes_providers.dart';
@@ -18,6 +19,7 @@ import '../ventes/devis/devis_detail_page.dart';
 import '../ventes/devis/devis_entete_formulaire.dart';
 import '../ventes/factures/facture_vente_detail_page.dart';
 import '../ventes/factures/facture_vente_entete_formulaire.dart';
+import 'tiers/tiers_formulaire.dart';
 
 Future<void> _nouveauDevis(BuildContext context, WidgetRef ref) async {
   final devis = await ouvrirCreationDevis(context, ref);
@@ -52,6 +54,11 @@ Future<void> _nouvelleCommande(BuildContext context, WidgetRef ref) async {
     ).push(MaterialPageRoute(builder: (_) => CommandeClientDetailPage(commandeId: commande.id!)));
   }
 }
+
+Future<void> _nouveauClient(BuildContext context) => ouvrirFormulaireTiers(context, typeInitial: TypeTiers.client);
+
+Future<void> _nouveauFournisseur(BuildContext context) =>
+    ouvrirFormulaireTiers(context, typeInitial: TypeTiers.fournisseur);
 
 class TableauBordPage extends ConsumerWidget {
   const TableauBordPage({super.key});
@@ -119,6 +126,16 @@ class _TableauBordDesktop extends ConsumerWidget {
                 onPressed: () => _nouvelleCommande(context, ref),
                 icon: const Text('🛒'),
                 label: const Text('Nouvelle commande'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => _nouveauClient(context),
+                icon: const Text('👤'),
+                label: const Text('Ajouter client'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => _nouveauFournisseur(context),
+                icon: const Text('🏭'),
+                label: const Text('Ajouter fournisseur'),
               ),
             ],
           ),
@@ -220,6 +237,18 @@ class _TableauBordMobile extends ConsumerWidget {
                   couleurFond: AppColors.attentePale,
                   libelle: 'Commande',
                   onTap: () => _nouvelleCommande(context, ref),
+                ),
+                _ActionRapide(
+                  emoji: '👤',
+                  couleurFond: AppColors.infoPale,
+                  libelle: 'Client',
+                  onTap: () => _nouveauClient(context),
+                ),
+                _ActionRapide(
+                  emoji: '🏭',
+                  couleurFond: AppColors.orPale,
+                  libelle: 'Fournisseur',
+                  onTap: () => _nouveauFournisseur(context),
                 ),
               ],
             ),
