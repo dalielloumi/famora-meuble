@@ -25,6 +25,30 @@ class DevisListeNotifier extends AsyncNotifier<List<Devis>> {
     ref.invalidateSelf();
     await future;
   }
+
+  /// Traite une sélection multiple : un brouillon (jamais numéroté) est
+  /// supprimé, un document déjà validé/annulé est simplement annulé — pour
+  /// préserver la numérotation et la traçabilité comptable.
+  Future<List<String>> annulerOuSupprimerPlusieurs(List<String> ids) async {
+    final repo = ref.read(devisRepositoryProvider);
+    final liste = state.value ?? [];
+    final echecs = <String>[];
+    for (final id in ids) {
+      final document = liste.where((d) => d.id == id).firstOrNull;
+      try {
+        if (document?.statut == StatutDocument.brouillon) {
+          await repo.supprimer(id);
+        } else {
+          await repo.annuler(id);
+        }
+      } catch (_) {
+        echecs.add(id);
+      }
+    }
+    ref.invalidateSelf();
+    await future;
+    return echecs;
+  }
 }
 
 final devisListeProvider = AsyncNotifierProvider<DevisListeNotifier, List<Devis>>(DevisListeNotifier.new);
@@ -36,6 +60,27 @@ class CommandeClientListeNotifier extends AsyncNotifier<List<CommandeClient>> {
   Future<void> rafraichir() async {
     ref.invalidateSelf();
     await future;
+  }
+
+  Future<List<String>> annulerOuSupprimerPlusieurs(List<String> ids) async {
+    final repo = ref.read(commandeClientRepositoryProvider);
+    final liste = state.value ?? [];
+    final echecs = <String>[];
+    for (final id in ids) {
+      final document = liste.where((d) => d.id == id).firstOrNull;
+      try {
+        if (document?.statut == StatutDocument.brouillon) {
+          await repo.supprimer(id);
+        } else {
+          await repo.annuler(id);
+        }
+      } catch (_) {
+        echecs.add(id);
+      }
+    }
+    ref.invalidateSelf();
+    await future;
+    return echecs;
   }
 }
 
@@ -50,6 +95,27 @@ class BlListeNotifier extends AsyncNotifier<List<Bl>> {
     ref.invalidateSelf();
     await future;
   }
+
+  Future<List<String>> annulerOuSupprimerPlusieurs(List<String> ids) async {
+    final repo = ref.read(blRepositoryProvider);
+    final liste = state.value ?? [];
+    final echecs = <String>[];
+    for (final id in ids) {
+      final document = liste.where((d) => d.id == id).firstOrNull;
+      try {
+        if (document?.statut == StatutDocument.brouillon) {
+          await repo.supprimer(id);
+        } else {
+          await repo.annuler(id);
+        }
+      } catch (_) {
+        echecs.add(id);
+      }
+    }
+    ref.invalidateSelf();
+    await future;
+    return echecs;
+  }
 }
 
 final blListeProvider = AsyncNotifierProvider<BlListeNotifier, List<Bl>>(BlListeNotifier.new);
@@ -61,6 +127,27 @@ class FactureVenteListeNotifier extends AsyncNotifier<List<FactureVente>> {
   Future<void> rafraichir() async {
     ref.invalidateSelf();
     await future;
+  }
+
+  Future<List<String>> annulerOuSupprimerPlusieurs(List<String> ids) async {
+    final repo = ref.read(factureVenteRepositoryProvider);
+    final liste = state.value ?? [];
+    final echecs = <String>[];
+    for (final id in ids) {
+      final document = liste.where((d) => d.id == id).firstOrNull;
+      try {
+        if (document?.statut == StatutDocument.brouillon) {
+          await repo.supprimer(id);
+        } else {
+          await repo.annuler(id);
+        }
+      } catch (_) {
+        echecs.add(id);
+      }
+    }
+    ref.invalidateSelf();
+    await future;
+    return echecs;
   }
 }
 

@@ -17,6 +17,7 @@ class AppDataGrid extends StatefulWidget {
     this.onLoaded,
     this.onChanged,
     this.onSelected,
+    this.onRowChecked,
     this.actions,
   });
 
@@ -25,6 +26,7 @@ class AppDataGrid extends StatefulWidget {
   final void Function(PlutoGridOnLoadedEvent)? onLoaded;
   final void Function(PlutoGridOnChangedEvent)? onChanged;
   final void Function(PlutoGridOnSelectedEvent)? onSelected;
+  final void Function(PlutoGridOnRowCheckedEvent)? onRowChecked;
   final List<Widget>? actions;
 
   @override
@@ -84,6 +86,7 @@ class _AppDataGridState extends State<AppDataGrid> {
             },
             onChanged: widget.onChanged,
             onSelected: widget.onSelected,
+            onRowChecked: widget.onRowChecked,
             configuration: PlutoGridConfiguration(
               style: PlutoGridStyleConfig(
                 rowHeight: AppTheme.hauteurLigneGrille,

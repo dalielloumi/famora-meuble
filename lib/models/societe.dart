@@ -9,6 +9,7 @@ part 'societe.g.dart';
 @freezed
 abstract class Societe with _$Societe {
   const factory Societe({
+    required String id,
     @JsonKey(name: 'raison_sociale') required String raisonSociale,
     @JsonKey(name: 'matricule_fiscal') required String matriculeFiscal,
     required String adresse,

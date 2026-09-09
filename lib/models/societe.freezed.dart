@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Societe {
 
-@JsonKey(name: 'raison_sociale') String get raisonSociale;@JsonKey(name: 'matricule_fiscal') String get matriculeFiscal; String get adresse;@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal get timbreFiscal;@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal get tauxFodec; String? get telephone;@JsonKey(name: 'logo_url') String? get logoUrl;
+ String get id;@JsonKey(name: 'raison_sociale') String get raisonSociale;@JsonKey(name: 'matricule_fiscal') String get matriculeFiscal; String get adresse;@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal get timbreFiscal;@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal get tauxFodec; String? get telephone;@JsonKey(name: 'logo_url') String? get logoUrl;
 /// Create a copy of Societe
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SocieteCopyWith<Societe> get copyWith => _$SocieteCopyWithImpl<Societe>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Societe&&(identical(other.raisonSociale, raisonSociale) || other.raisonSociale == raisonSociale)&&(identical(other.matriculeFiscal, matriculeFiscal) || other.matriculeFiscal == matriculeFiscal)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.timbreFiscal, timbreFiscal) || other.timbreFiscal == timbreFiscal)&&(identical(other.tauxFodec, tauxFodec) || other.tauxFodec == tauxFodec)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Societe&&(identical(other.id, id) || other.id == id)&&(identical(other.raisonSociale, raisonSociale) || other.raisonSociale == raisonSociale)&&(identical(other.matriculeFiscal, matriculeFiscal) || other.matriculeFiscal == matriculeFiscal)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.timbreFiscal, timbreFiscal) || other.timbreFiscal == timbreFiscal)&&(identical(other.tauxFodec, tauxFodec) || other.tauxFodec == tauxFodec)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,raisonSociale,matriculeFiscal,adresse,timbreFiscal,tauxFodec,telephone,logoUrl);
+int get hashCode => Object.hash(runtimeType,id,raisonSociale,matriculeFiscal,adresse,timbreFiscal,tauxFodec,telephone,logoUrl);
 
 @override
 String toString() {
-  return 'Societe(raisonSociale: $raisonSociale, matriculeFiscal: $matriculeFiscal, adresse: $adresse, timbreFiscal: $timbreFiscal, tauxFodec: $tauxFodec, telephone: $telephone, logoUrl: $logoUrl)';
+  return 'Societe(id: $id, raisonSociale: $raisonSociale, matriculeFiscal: $matriculeFiscal, adresse: $adresse, timbreFiscal: $timbreFiscal, tauxFodec: $tauxFodec, telephone: $telephone, logoUrl: $logoUrl)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SocieteCopyWith<$Res>  {
   factory $SocieteCopyWith(Societe value, $Res Function(Societe) _then) = _$SocieteCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'raison_sociale') String raisonSociale,@JsonKey(name: 'matricule_fiscal') String matriculeFiscal, String adresse,@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal timbreFiscal,@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal tauxFodec, String? telephone,@JsonKey(name: 'logo_url') String? logoUrl
+ String id,@JsonKey(name: 'raison_sociale') String raisonSociale,@JsonKey(name: 'matricule_fiscal') String matriculeFiscal, String adresse,@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal timbreFiscal,@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal tauxFodec, String? telephone,@JsonKey(name: 'logo_url') String? logoUrl
 });
 
 
@@ -65,9 +65,10 @@ class _$SocieteCopyWithImpl<$Res>
 
 /// Create a copy of Societe
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? raisonSociale = null,Object? matriculeFiscal = null,Object? adresse = null,Object? timbreFiscal = null,Object? tauxFodec = null,Object? telephone = freezed,Object? logoUrl = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? raisonSociale = null,Object? matriculeFiscal = null,Object? adresse = null,Object? timbreFiscal = null,Object? tauxFodec = null,Object? telephone = freezed,Object? logoUrl = freezed,}) {
   return _then(_self.copyWith(
-raisonSociale: null == raisonSociale ? _self.raisonSociale : raisonSociale // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,raisonSociale: null == raisonSociale ? _self.raisonSociale : raisonSociale // ignore: cast_nullable_to_non_nullable
 as String,matriculeFiscal: null == matriculeFiscal ? _self.matriculeFiscal : matriculeFiscal // ignore: cast_nullable_to_non_nullable
 as String,adresse: null == adresse ? _self.adresse : adresse // ignore: cast_nullable_to_non_nullable
 as String,timbreFiscal: null == timbreFiscal ? _self.timbreFiscal : timbreFiscal // ignore: cast_nullable_to_non_nullable
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Societe() when $default != null:
-return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
+return $default(_that.id,_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.ti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Societe():
-return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
+return $default(_that.id,_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.ti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'raison_sociale')  String raisonSociale, @JsonKey(name: 'matricule_fiscal')  String matriculeFiscal,  String adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal')  Decimal timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec')  Decimal tauxFodec,  String? telephone, @JsonKey(name: 'logo_url')  String? logoUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Societe() when $default != null:
-return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
+return $default(_that.id,_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.timbreFiscal,_that.tauxFodec,_that.telephone,_that.logoUrl);case _:
   return null;
 
 }
@@ -215,9 +216,10 @@ return $default(_that.raisonSociale,_that.matriculeFiscal,_that.adresse,_that.ti
 @JsonSerializable()
 
 class _Societe implements Societe {
-  const _Societe({@JsonKey(name: 'raison_sociale') required this.raisonSociale, @JsonKey(name: 'matricule_fiscal') required this.matriculeFiscal, required this.adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal') required this.timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec') required this.tauxFodec, this.telephone, @JsonKey(name: 'logo_url') this.logoUrl});
+  const _Societe({required this.id, @JsonKey(name: 'raison_sociale') required this.raisonSociale, @JsonKey(name: 'matricule_fiscal') required this.matriculeFiscal, required this.adresse, @DecimalConverter()@JsonKey(name: 'timbre_fiscal') required this.timbreFiscal, @DecimalConverter()@JsonKey(name: 'taux_fodec') required this.tauxFodec, this.telephone, @JsonKey(name: 'logo_url') this.logoUrl});
   factory _Societe.fromJson(Map<String, dynamic> json) => _$SocieteFromJson(json);
 
+@override final  String id;
 @override@JsonKey(name: 'raison_sociale') final  String raisonSociale;
 @override@JsonKey(name: 'matricule_fiscal') final  String matriculeFiscal;
 @override final  String adresse;
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Societe&&(identical(other.raisonSociale, raisonSociale) || other.raisonSociale == raisonSociale)&&(identical(other.matriculeFiscal, matriculeFiscal) || other.matriculeFiscal == matriculeFiscal)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.timbreFiscal, timbreFiscal) || other.timbreFiscal == timbreFiscal)&&(identical(other.tauxFodec, tauxFodec) || other.tauxFodec == tauxFodec)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Societe&&(identical(other.id, id) || other.id == id)&&(identical(other.raisonSociale, raisonSociale) || other.raisonSociale == raisonSociale)&&(identical(other.matriculeFiscal, matriculeFiscal) || other.matriculeFiscal == matriculeFiscal)&&(identical(other.adresse, adresse) || other.adresse == adresse)&&(identical(other.timbreFiscal, timbreFiscal) || other.timbreFiscal == timbreFiscal)&&(identical(other.tauxFodec, tauxFodec) || other.tauxFodec == tauxFodec)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,raisonSociale,matriculeFiscal,adresse,timbreFiscal,tauxFodec,telephone,logoUrl);
+int get hashCode => Object.hash(runtimeType,id,raisonSociale,matriculeFiscal,adresse,timbreFiscal,tauxFodec,telephone,logoUrl);
 
 @override
 String toString() {
-  return 'Societe(raisonSociale: $raisonSociale, matriculeFiscal: $matriculeFiscal, adresse: $adresse, timbreFiscal: $timbreFiscal, tauxFodec: $tauxFodec, telephone: $telephone, logoUrl: $logoUrl)';
+  return 'Societe(id: $id, raisonSociale: $raisonSociale, matriculeFiscal: $matriculeFiscal, adresse: $adresse, timbreFiscal: $timbreFiscal, tauxFodec: $tauxFodec, telephone: $telephone, logoUrl: $logoUrl)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$SocieteCopyWith<$Res> implements $SocieteCopyWith<$Res> {
   factory _$SocieteCopyWith(_Societe value, $Res Function(_Societe) _then) = __$SocieteCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'raison_sociale') String raisonSociale,@JsonKey(name: 'matricule_fiscal') String matriculeFiscal, String adresse,@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal timbreFiscal,@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal tauxFodec, String? telephone,@JsonKey(name: 'logo_url') String? logoUrl
+ String id,@JsonKey(name: 'raison_sociale') String raisonSociale,@JsonKey(name: 'matricule_fiscal') String matriculeFiscal, String adresse,@DecimalConverter()@JsonKey(name: 'timbre_fiscal') Decimal timbreFiscal,@DecimalConverter()@JsonKey(name: 'taux_fodec') Decimal tauxFodec, String? telephone,@JsonKey(name: 'logo_url') String? logoUrl
 });
 
 
@@ -276,9 +278,10 @@ class __$SocieteCopyWithImpl<$Res>
 
 /// Create a copy of Societe
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? raisonSociale = null,Object? matriculeFiscal = null,Object? adresse = null,Object? timbreFiscal = null,Object? tauxFodec = null,Object? telephone = freezed,Object? logoUrl = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? raisonSociale = null,Object? matriculeFiscal = null,Object? adresse = null,Object? timbreFiscal = null,Object? tauxFodec = null,Object? telephone = freezed,Object? logoUrl = freezed,}) {
   return _then(_Societe(
-raisonSociale: null == raisonSociale ? _self.raisonSociale : raisonSociale // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,raisonSociale: null == raisonSociale ? _self.raisonSociale : raisonSociale // ignore: cast_nullable_to_non_nullable
 as String,matriculeFiscal: null == matriculeFiscal ? _self.matriculeFiscal : matriculeFiscal // ignore: cast_nullable_to_non_nullable
 as String,adresse: null == adresse ? _self.adresse : adresse // ignore: cast_nullable_to_non_nullable
 as String,timbreFiscal: null == timbreFiscal ? _self.timbreFiscal : timbreFiscal // ignore: cast_nullable_to_non_nullable

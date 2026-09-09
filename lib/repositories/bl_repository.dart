@@ -115,4 +115,10 @@ class BlRepository {
   Future<void> annuler(String id) async {
     await supabase.from('bl').update({'statut': 'ANNULE'}).eq('id', id);
   }
+
+  /// Suppression définitive — uniquement pertinent pour un brouillon (jamais
+  /// numéroté). Un BL validé doit être annulé, pas supprimé.
+  Future<void> supprimer(String id) async {
+    await supabase.from('bl').delete().eq('id', id);
+  }
 }

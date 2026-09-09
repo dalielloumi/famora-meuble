@@ -7,7 +7,6 @@ import '../models/societe.dart';
 
 class SocieteRepository {
   static const _bucket = 'logos';
-  static const _chemin = 'logo';
 
   Future<Societe> charger() async {
     final ligne = await supabase.from('societe').select().single();
@@ -15,12 +14,15 @@ class SocieteRepository {
   }
 
   /// Téléverse (ou remplace) le logo de la société dans Supabase Storage
-  /// (bucket privé, voir migration 019) et enregistre son chemin.
+  /// (bucket privé, un dossier par entreprise — voir migrations 019 et
+  /// 023_multi_tenant_stockage_logo.sql) et enregistre son chemin.
   Future<void> televerserLogo(Uint8List octets, {required String typeContenu}) async {
+    final societeId = (await charger()).id;
+    final chemin = '$societeId/logo';
     await supabase.storage
         .from(_bucket)
-        .uploadBinary(_chemin, octets, fileOptions: FileOptions(contentType: typeContenu, upsert: true));
-    await supabase.from('societe').update({'logo_url': _chemin}).eq('id', true);
+        .uploadBinary(chemin, octets, fileOptions: FileOptions(contentType: typeContenu, upsert: true));
+    await supabase.from('societe').update({'logo_url': chemin}).eq('id', societeId);
   }
 
   /// Télécharge les octets du logo pour l'aperçu ou l'inclusion dans un PDF.

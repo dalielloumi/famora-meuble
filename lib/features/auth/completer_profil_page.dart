@@ -7,10 +7,11 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text.dart';
 import '../../providers/auth_providers.dart';
 
-/// Première connexion : le compte existe dans Supabase Auth mais aucun profil
-/// n'a encore été créé côté application. Auto-provisioning en rôle ADMIN
-/// (seul rôle existant, voir PROJET.md section 3) via la RPC
-/// provisionner_utilisateur_admin.
+/// Première connexion : le compte existe dans Supabase Auth mais aucune
+/// entreprise n'a encore été créée côté application. Cet écran crée
+/// l'espace de l'entreprise (isolé de toute autre entreprise utilisant
+/// l'application) et provisionne l'utilisateur en rôle ADMIN de celle-ci,
+/// via la RPC provisionner_nouvelle_entreprise.
 class CompleterProfilPage extends ConsumerStatefulWidget {
   const CompleterProfilPage({super.key});
 
@@ -38,14 +39,17 @@ class _CompleterProfilPageState extends ConsumerState<CompleterProfilPage> {
     try {
       await ref
           .read(utilisateurRepositoryProvider)
-          .provisionnerAdmin(
+          .provisionnerNouvelleEntreprise(
             userId: userId,
             nom: etat.value['nom'] as String,
             prenom: etat.value['prenom'] as String,
+            raisonSociale: etat.value['raison_sociale'] as String,
+            matriculeFiscal: etat.value['matricule_fiscal'] as String,
+            adresse: etat.value['adresse'] as String,
           );
       ref.invalidate(profilCourantProvider);
     } catch (e) {
-      setState(() => _erreur = 'Impossible de créer le profil : $e');
+      setState(() => _erreur = 'Impossible de créer votre espace : $e');
     } finally {
       if (mounted) setState(() => _enCours = false);
     }
@@ -57,7 +61,7 @@ class _CompleterProfilPageState extends ConsumerState<CompleterProfilPage> {
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 360),
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: FormBuilder(
               key: _cleFormulaire,
@@ -68,7 +72,7 @@ class _CompleterProfilPageState extends ConsumerState<CompleterProfilPage> {
                   Text('Bienvenue', style: AppText.titre, textAlign: TextAlign.center),
                   const SizedBox(height: 4),
                   Text(
-                    'Première connexion : complétez votre profil.',
+                    'Première connexion : créez votre espace.',
                     style: AppText.corps.copyWith(color: AppColors.texte.withValues(alpha: 0.6)),
                     textAlign: TextAlign.center,
                   ),
@@ -82,6 +86,26 @@ class _CompleterProfilPageState extends ConsumerState<CompleterProfilPage> {
                   FormBuilderTextField(
                     name: 'nom',
                     decoration: const InputDecoration(labelText: 'Nom'),
+                    validator: FormBuilderValidators.required(errorText: 'Champ requis'),
+                  ),
+                  const SizedBox(height: 20),
+                  Text('Votre entreprise', style: AppText.sousTitre),
+                  const SizedBox(height: 12),
+                  FormBuilderTextField(
+                    name: 'raison_sociale',
+                    decoration: const InputDecoration(labelText: 'Raison sociale'),
+                    validator: FormBuilderValidators.required(errorText: 'Champ requis'),
+                  ),
+                  const SizedBox(height: 12),
+                  FormBuilderTextField(
+                    name: 'matricule_fiscal',
+                    decoration: const InputDecoration(labelText: 'Matricule fiscal'),
+                    validator: FormBuilderValidators.required(errorText: 'Champ requis'),
+                  ),
+                  const SizedBox(height: 12),
+                  FormBuilderTextField(
+                    name: 'adresse',
+                    decoration: const InputDecoration(labelText: 'Adresse'),
                     validator: FormBuilderValidators.required(errorText: 'Champ requis'),
                   ),
                   if (_erreur != null) ...[

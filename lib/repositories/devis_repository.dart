@@ -86,4 +86,10 @@ class DevisRepository {
   Future<void> annuler(String id) async {
     await supabase.from('devis').update({'statut': 'ANNULE'}).eq('id', id);
   }
+
+  /// Suppression définitive — uniquement pertinent pour un brouillon (jamais
+  /// numéroté). Un devis validé doit être annulé, pas supprimé.
+  Future<void> supprimer(String id) async {
+    await supabase.from('devis').delete().eq('id', id);
+  }
 }

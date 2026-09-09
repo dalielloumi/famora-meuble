@@ -90,4 +90,10 @@ class CommandeClientRepository {
   Future<void> annuler(String id) async {
     await supabase.from('commande_client').update({'statut': 'ANNULE'}).eq('id', id);
   }
+
+  /// Suppression définitive — uniquement pertinent pour un brouillon (jamais
+  /// numéroté). Une commande validée doit être annulée, pas supprimée.
+  Future<void> supprimer(String id) async {
+    await supabase.from('commande_client').delete().eq('id', id);
+  }
 }

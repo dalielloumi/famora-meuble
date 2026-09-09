@@ -7,6 +7,7 @@ part 'utilisateur_profil.g.dart';
 abstract class UtilisateurProfil with _$UtilisateurProfil {
   const factory UtilisateurProfil({
     required String id,
+    @JsonKey(name: 'societe_id') required String societeId,
     required String nom,
     required String prenom,
     @JsonKey(name: 'role_id') required String roleId,

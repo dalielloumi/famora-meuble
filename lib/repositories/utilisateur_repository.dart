@@ -10,14 +10,30 @@ class UtilisateurRepository {
     return UtilisateurProfil.fromJson(ligne);
   }
 
-  /// À appeler une seule fois, juste après la création du compte dans
-  /// Supabase Auth, pour créer le profil applicatif correspondant (rôle
-  /// ADMIN). Voir la fonction app.provisionner_utilisateur_admin (migration
-  /// 013_seed.sql).
-  Future<void> provisionnerAdmin({required String userId, required String nom, required String prenom}) async {
+  /// À appeler une seule fois, à la première connexion d'un utilisateur dont
+  /// le compte a été créé manuellement dans Supabase Auth. Crée sa société
+  /// (espace isolé) et son profil ADMIN qui la dirige, avec des valeurs de
+  /// référence de base (TVA, unités, dépôt, exercice, catégories). Voir la
+  /// fonction provisionner_nouvelle_entreprise (migration
+  /// 024_provisionnement_entreprise.sql).
+  Future<void> provisionnerNouvelleEntreprise({
+    required String userId,
+    required String nom,
+    required String prenom,
+    required String raisonSociale,
+    required String matriculeFiscal,
+    required String adresse,
+  }) async {
     await supabase.rpc(
-      'provisionner_utilisateur_admin',
-      params: {'p_user_id': userId, 'p_nom': nom, 'p_prenom': prenom},
+      'provisionner_nouvelle_entreprise',
+      params: {
+        'p_user_id': userId,
+        'p_nom': nom,
+        'p_prenom': prenom,
+        'p_raison_sociale': raisonSociale,
+        'p_matricule_fiscal': matriculeFiscal,
+        'p_adresse': adresse,
+      },
     );
   }
 }

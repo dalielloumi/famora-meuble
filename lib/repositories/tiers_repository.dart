@@ -31,4 +31,11 @@ class TiersRepository {
   Future<void> archiver(String id, {required bool actif}) async {
     await supabase.from('tiers').update({'actif': actif}).eq('id', id);
   }
+
+  /// Suppression définitive. Échoue si ce tiers est encore référencé par des
+  /// documents existants (devis, factures...) — préférer archiver() dans ce
+  /// cas plutôt que de forcer la suppression.
+  Future<void> supprimer(String id) async {
+    await supabase.from('tiers').delete().eq('id', id);
+  }
 }

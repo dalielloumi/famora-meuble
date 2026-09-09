@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UtilisateurProfil {
 
- String get id; String get nom; String get prenom;@JsonKey(name: 'role_id') String get roleId; bool get actif;
+ String get id;@JsonKey(name: 'societe_id') String get societeId; String get nom; String get prenom;@JsonKey(name: 'role_id') String get roleId; bool get actif;
 /// Create a copy of UtilisateurProfil
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UtilisateurProfilCopyWith<UtilisateurProfil> get copyWith => _$UtilisateurProfi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UtilisateurProfil&&(identical(other.id, id) || other.id == id)&&(identical(other.nom, nom) || other.nom == nom)&&(identical(other.prenom, prenom) || other.prenom == prenom)&&(identical(other.roleId, roleId) || other.roleId == roleId)&&(identical(other.actif, actif) || other.actif == actif));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UtilisateurProfil&&(identical(other.id, id) || other.id == id)&&(identical(other.societeId, societeId) || other.societeId == societeId)&&(identical(other.nom, nom) || other.nom == nom)&&(identical(other.prenom, prenom) || other.prenom == prenom)&&(identical(other.roleId, roleId) || other.roleId == roleId)&&(identical(other.actif, actif) || other.actif == actif));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,nom,prenom,roleId,actif);
+int get hashCode => Object.hash(runtimeType,id,societeId,nom,prenom,roleId,actif);
 
 @override
 String toString() {
-  return 'UtilisateurProfil(id: $id, nom: $nom, prenom: $prenom, roleId: $roleId, actif: $actif)';
+  return 'UtilisateurProfil(id: $id, societeId: $societeId, nom: $nom, prenom: $prenom, roleId: $roleId, actif: $actif)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UtilisateurProfilCopyWith<$Res>  {
   factory $UtilisateurProfilCopyWith(UtilisateurProfil value, $Res Function(UtilisateurProfil) _then) = _$UtilisateurProfilCopyWithImpl;
 @useResult
 $Res call({
- String id, String nom, String prenom,@JsonKey(name: 'role_id') String roleId, bool actif
+ String id,@JsonKey(name: 'societe_id') String societeId, String nom, String prenom,@JsonKey(name: 'role_id') String roleId, bool actif
 });
 
 
@@ -65,9 +65,10 @@ class _$UtilisateurProfilCopyWithImpl<$Res>
 
 /// Create a copy of UtilisateurProfil
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nom = null,Object? prenom = null,Object? roleId = null,Object? actif = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? societeId = null,Object? nom = null,Object? prenom = null,Object? roleId = null,Object? actif = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,societeId: null == societeId ? _self.societeId : societeId // ignore: cast_nullable_to_non_nullable
 as String,nom: null == nom ? _self.nom : nom // ignore: cast_nullable_to_non_nullable
 as String,prenom: null == prenom ? _self.prenom : prenom // ignore: cast_nullable_to_non_nullable
 as String,roleId: null == roleId ? _self.roleId : roleId // ignore: cast_nullable_to_non_nullable
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'societe_id')  String societeId,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UtilisateurProfil() when $default != null:
-return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
+return $default(_that.id,_that.societeId,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'societe_id')  String societeId,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)  $default,) {final _that = this;
 switch (_that) {
 case _UtilisateurProfil():
-return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
+return $default(_that.id,_that.societeId,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'societe_id')  String societeId,  String nom,  String prenom, @JsonKey(name: 'role_id')  String roleId,  bool actif)?  $default,) {final _that = this;
 switch (_that) {
 case _UtilisateurProfil() when $default != null:
-return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
+return $default(_that.id,_that.societeId,_that.nom,_that.prenom,_that.roleId,_that.actif);case _:
   return null;
 
 }
@@ -213,10 +214,11 @@ return $default(_that.id,_that.nom,_that.prenom,_that.roleId,_that.actif);case _
 @JsonSerializable()
 
 class _UtilisateurProfil implements UtilisateurProfil {
-  const _UtilisateurProfil({required this.id, required this.nom, required this.prenom, @JsonKey(name: 'role_id') required this.roleId, required this.actif});
+  const _UtilisateurProfil({required this.id, @JsonKey(name: 'societe_id') required this.societeId, required this.nom, required this.prenom, @JsonKey(name: 'role_id') required this.roleId, required this.actif});
   factory _UtilisateurProfil.fromJson(Map<String, dynamic> json) => _$UtilisateurProfilFromJson(json);
 
 @override final  String id;
+@override@JsonKey(name: 'societe_id') final  String societeId;
 @override final  String nom;
 @override final  String prenom;
 @override@JsonKey(name: 'role_id') final  String roleId;
@@ -235,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UtilisateurProfil&&(identical(other.id, id) || other.id == id)&&(identical(other.nom, nom) || other.nom == nom)&&(identical(other.prenom, prenom) || other.prenom == prenom)&&(identical(other.roleId, roleId) || other.roleId == roleId)&&(identical(other.actif, actif) || other.actif == actif));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UtilisateurProfil&&(identical(other.id, id) || other.id == id)&&(identical(other.societeId, societeId) || other.societeId == societeId)&&(identical(other.nom, nom) || other.nom == nom)&&(identical(other.prenom, prenom) || other.prenom == prenom)&&(identical(other.roleId, roleId) || other.roleId == roleId)&&(identical(other.actif, actif) || other.actif == actif));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,nom,prenom,roleId,actif);
+int get hashCode => Object.hash(runtimeType,id,societeId,nom,prenom,roleId,actif);
 
 @override
 String toString() {
-  return 'UtilisateurProfil(id: $id, nom: $nom, prenom: $prenom, roleId: $roleId, actif: $actif)';
+  return 'UtilisateurProfil(id: $id, societeId: $societeId, nom: $nom, prenom: $prenom, roleId: $roleId, actif: $actif)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$UtilisateurProfilCopyWith<$Res> implements $UtilisateurPr
   factory _$UtilisateurProfilCopyWith(_UtilisateurProfil value, $Res Function(_UtilisateurProfil) _then) = __$UtilisateurProfilCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String nom, String prenom,@JsonKey(name: 'role_id') String roleId, bool actif
+ String id,@JsonKey(name: 'societe_id') String societeId, String nom, String prenom,@JsonKey(name: 'role_id') String roleId, bool actif
 });
 
 
@@ -272,9 +274,10 @@ class __$UtilisateurProfilCopyWithImpl<$Res>
 
 /// Create a copy of UtilisateurProfil
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nom = null,Object? prenom = null,Object? roleId = null,Object? actif = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? societeId = null,Object? nom = null,Object? prenom = null,Object? roleId = null,Object? actif = null,}) {
   return _then(_UtilisateurProfil(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,societeId: null == societeId ? _self.societeId : societeId // ignore: cast_nullable_to_non_nullable
 as String,nom: null == nom ? _self.nom : nom // ignore: cast_nullable_to_non_nullable
 as String,prenom: null == prenom ? _self.prenom : prenom // ignore: cast_nullable_to_non_nullable
 as String,roleId: null == roleId ? _self.roleId : roleId // ignore: cast_nullable_to_non_nullable

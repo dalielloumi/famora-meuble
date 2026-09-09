@@ -98,4 +98,10 @@ class FactureVenteRepository {
   Future<void> annuler(String id) async {
     await supabase.from('facture_vente').update({'statut': 'ANNULE'}).eq('id', id);
   }
+
+  /// Suppression définitive — uniquement pertinent pour un brouillon (jamais
+  /// numéroté). Une facture validée doit être annulée, pas supprimée.
+  Future<void> supprimer(String id) async {
+    await supabase.from('facture_vente').delete().eq('id', id);
+  }
 }

@@ -7,6 +7,7 @@ part of 'societe.dart';
 // **************************************************************************
 
 _Societe _$SocieteFromJson(Map<String, dynamic> json) => _Societe(
+  id: json['id'] as String,
   raisonSociale: json['raison_sociale'] as String,
   matriculeFiscal: json['matricule_fiscal'] as String,
   adresse: json['adresse'] as String,
@@ -17,6 +18,7 @@ _Societe _$SocieteFromJson(Map<String, dynamic> json) => _Societe(
 );
 
 Map<String, dynamic> _$SocieteToJson(_Societe instance) => <String, dynamic>{
+  'id': instance.id,
   'raison_sociale': instance.raisonSociale,
   'matricule_fiscal': instance.matriculeFiscal,
   'adresse': instance.adresse,
